@@ -9,7 +9,9 @@ This repo is my public learning log — every phase, every project, every concep
 ## About This Journey
 
 **Background:** CS degree + IT help desk + advanced coding experience
+
 **Focus:** Data-private, self-hosted open-source LLMs — no cloud lock-in
+
 **Stack:** Python · LangChain · LangGraph · LlamaIndex · Ollama · vLLM · Docker · FastAPI
 
 ---
@@ -42,7 +44,7 @@ This repo is my public learning log — every phase, every project, every concep
 ## Repository Structure
 
 ```
-ai-agent-journey/
+AIAgentLearning/
 ├── pre-phase/
 │   ├── chatbot/              # Multi-turn chatbot, raw Python, cloud API
 │   └── react-loop/           # ReAct loop from scratch, no frameworks
