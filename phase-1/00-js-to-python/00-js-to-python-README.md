@@ -32,9 +32,10 @@ python collatz.py
 ```
 
 ## What I Learned
-
-<!-- Fill in: 2–3 concrete things. Include what broke and how you fixed it. -->
+`:.1f` formats a float to a fixed number of decimal places, which also avoids
+floating point precision errors in the output (e.g. `32.00000000000001` becoming `32.0`).
+`//` performs floor division, returning an integer result rather than a float.
 
 ## What I Would Do Differently
-
-<!-- Fill in: be specific. Not "add more features" — something about the approach. -->
+Add input validation to `collatz.py` to reject negative numbers and zero —
+both cause the sequence to never terminate, resulting in an infinite loop.
