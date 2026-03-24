@@ -14,7 +14,7 @@ KNOWN_NOW = datetime(2026, 3, 23, 12, 10, tzinfo=timezone.utc)
 
 
 @pytest.fixture
-def mock_api_responce():
+def mock_api_response():
     today = KNOWN_NOW.date()
     tomorrow = (KNOWN_NOW + timedelta(days=1)).date()
 
@@ -33,27 +33,26 @@ def mock_api_responce():
     }
 
 
-# How do we test our data if we use current time when we mock the api!?
-def test_get_current_temp(mock_api_responce):
-    result = get_current_temp(mock_api_responce, now=KNOWN_NOW.replace(tzinfo=None))
+def test_get_current_temp(mock_api_response):
+    result = get_current_temp(mock_api_response, now=KNOWN_NOW.replace(tzinfo=None))
     assert result == 20.0
 
 
-def test_get_tomorrow_temp(mock_api_responce):
-    result = get_tomorrow_temp(mock_api_responce, now=KNOWN_NOW.replace(tzinfo=None))
+def test_get_tomorrow_temp(mock_api_response):
+    result = get_tomorrow_temp(mock_api_response, now=KNOWN_NOW.replace(tzinfo=None))
     assert result == [25.0, 28.0, 22.0]
 
 
-def test_highs_and_lows(mock_api_responce):
+def test_highs_and_lows(mock_api_response):
     resulta, resultb = get_highs_and_lows(
-        mock_api_responce, now=KNOWN_NOW.replace(tzinfo=None)
+        mock_api_response, now=KNOWN_NOW.replace(tzinfo=None)
     )
     assert resulta == 28.0
     assert resultb == 22.0
 
 
-def test_summary_contains_tomorrow(mock_api_responce):
-    data = mock_api_responce
+def test_summary_contains_tomorrow(mock_api_response):
+    data = mock_api_response
     now = KNOWN_NOW.replace(tzinfo=None)
     units = data["hourly_units"]["temperature_2m"]
     current = get_current_temp(data, now=now)

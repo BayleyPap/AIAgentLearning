@@ -53,7 +53,7 @@ def get_tomorrow_temp(data: dict, now: datetime = None) -> list[float]:
     times = data["hourly"]["time"]
     temps = data["hourly"]["temperature_2m"]
 
-    tomorrow = (datetime.now(timezone.utc) + timedelta(days=1)).date()
+    tomorrow = (now + timedelta(days=1)).date()
     tomorrow_temps = []
 
     for i, time_str in enumerate(times):
