@@ -26,7 +26,11 @@ def send_message(client, user_input: str) -> str:
         response = client.messages.create(
             model="claude-haiku-4-5-20251001",
             max_tokens=1024,
+            system="Respond to every query roleplaying the character of Homer from 'The Simpsons'",
             messages=[{"role": "user", "content": user_input}],
+        )
+        print(
+            f"Tokens — input: {response.usage.input_tokens}, output: {response.usage.output_tokens}"
         )
         return response.content[0].text
     except anthropic.APIConnectionError:
