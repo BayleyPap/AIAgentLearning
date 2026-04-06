@@ -4,10 +4,19 @@
 
 A CLI chatbot that maintains a conversation history across turns, sending the
 full message history to the Anthropic API on each request so the model retains
-context. Includes input validation (2–2000 characters), a `clear` command that
-empties history and reports how many turns were removed, a `quit` command that
-prints the session turn count, token usage output after each response, and a
-Homer Simpson system prompt.
+context. Supports saving and loading conversation history to JSON files for
+persistence across sessions.
+
+Commands:
+
+- `/help` — prints available commands
+- `/clear` — empties history and prints how many turns were removed
+- `/save <filename>` — saves conversation history to a JSON file
+- `/load <filename>` — loads a previously saved conversation into history
+- `/quit` — prints session turn count and exits
+
+Also includes input validation (2–2000 characters), token usage output after
+each response, and a Homer Simpson system prompt.
 
 ## Why I Built It
 
@@ -24,6 +33,15 @@ cp .env.example .env  # add your ANTHROPIC_API_KEY
 python chatbot.py
 ```
 
+Save and resume a conversation:
+
+```
+/save mysession
+/load mysession
+```
+
+No file extension needed -- `.json` is appended automatically.
+
 ## System Prompt Design
 
 The system prompt instructs the model to roleplay as Homer Simpson from The
@@ -39,20 +57,22 @@ name mid-conversation, the failure is immediately visible.
 
 `history = []` vs `history.clear()` is not interchangeable inside functions.
 Rebinding with `= []` creates a new local list and leaves the caller's
-reference unchanged. `.clear()` mutates in place. This matters the moment you
-extract history manipulation into a helper function -- the test for
-`clear_history()` would silently pass while the actual list in `main()` stayed
-untouched.
+reference unchanged. `.clear()` mutates in place. Extracting `clear_history()`
+as a standalone function that returns the removed count made this concrete.
 
-The `clear_history()` function returns the turn count before clearing so the
-caller can print it without needing to measure the list twice. Small thing but
-it keeps the logic in one place.
+`user_input.split()` returns a new list and discards it if you don't assign
+the result. Indexing into the original string with `user_input[1]` gives you
+the second character, not the second word. Cost me a debugging session.
 
 ## What I Would Do Differently
 
-`send_message()` prints token usage on every call. That output belongs behind
-a verbose flag or a dedicated `tokens` command rather than always-on noise.
-Same issue carried over from Program 4 and still not fixed.
+Exception handling for save and load is done at the call site in `main()`.
+A dedicated command dispatcher would be cleaner as the command list grows --
+`main()` is already longer than I'd like. Premature optimisation for a Phase 1
+program, but the right call for anything beyond this.
 
-History grows without bound. A production version would cap it or implement a
-sliding window to avoid eventually exceeding the model's context limit.
+`save_history()` silently overwrites existing files. A `--force` flag or an
+overwrite prompt would be safer in a real tool.
+
+Token tracking still prints on every response whether you want it or not.
+Should be behind a `/verbose` toggle.
