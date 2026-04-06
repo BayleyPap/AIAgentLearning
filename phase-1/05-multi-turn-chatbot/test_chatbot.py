@@ -1,7 +1,9 @@
+import json
+
 import anthropic
 import pytest
 
-from chatbot import clear_history, get_input, send_message
+from chatbot import clear_history, get_input, load_history, save_history, send_message
 
 
 @pytest.mark.parametrize(
@@ -78,3 +80,38 @@ def test_clear_empties_history():
     ]
     assert clear_history(history) == 1
     assert history == []
+
+
+def test_save_history(tmp_path):
+    history = [
+        {"role": "user", "content": "Hello"},
+        {"role": "assistant", "content": "Hi there"},
+    ]
+    file_path = tmp_path / "test_history"
+    save_history(history, str(file_path))
+    assert (tmp_path / "test_history.json").exists()
+    result = json.loads((tmp_path / "test_history.json").read_text())
+    assert result == history
+
+
+def test_load_history(tmp_path):
+    history = [
+        {"role": "user", "content": "Hello"},
+        {"role": "assistant", "content": "Hi there"},
+    ]
+    file_path = tmp_path / "test_history"
+    (tmp_path / "test_history.json").write_text(json.dumps(history))
+    result = load_history(str(file_path))
+    assert result == history
+
+
+def test_load_history_missing_file(tmp_path):
+    with pytest.raises(FileNotFoundError):
+        load_history(str(tmp_path / "nonexistent"))
+
+
+def test_load_history_invalid_json(tmp_path):
+    bad_file = tmp_path / "bad.json"
+    bad_file.write_text("not json at all")
+    with pytest.raises(ValueError):
+        load_history(str(tmp_path / "bad"))
