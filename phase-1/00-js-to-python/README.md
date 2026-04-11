@@ -1,30 +1,64 @@
-# Data Processor
+# Phase 1 Foundations — JS→Python Exercises & Data Processor
 
 ## What It Does
 
-Processes a hardcoded list of 8 student records. Filters students who scored 60 or above, sorts them by score from highest to lowest, groups them by subject, and writes the result to `output.json`. Prints a summary to the terminal showing total students, passing count, and the top scorer.
+Nine short scripts that close the Python syntax gap before Week 3 adds network and API complexity. Eight target specific syntax differences between JavaScript and Python: loops, arithmetic formatting, conditionals, error handling, while loops with a counter, file I/O, word frequency counting, and list filtering. The ninth (`process.py`) combines every Week 2 concept into a single data pipeline as a dry run for Program 3 (JSON File Transformer).
 
-## Why I Built It
+## Why I Built These
 
-Dry run for Program 3 (JSON File Transformer) in Week 3. The goal was to combine every concept from Week 2 — lists, dicts, list comprehensions, `json`, and `pathlib` — into a single working pipeline before adding network complexity. If the data transformation logic is solid here, Program 3 is an incremental step rather than a wall.
+To get Python syntax off the page and into muscle memory. JavaScript concepts are familiar; the friction is purely syntactic. These scripts eliminate that friction before writing programs that call external APIs.
 
-## How to Run It
+If the data transformation logic in `process.py` is solid, Program 3 is an incremental step rather than a wall.
+
+## Scripts
+
+| Script | What it does |
+|---|---|
+| `fibonacci.py` | Prints the first 10 Fibonacci numbers using multiple assignment |
+| `celsius_converter.py` | Converts four temperatures from Celsius to Fahrenheit |
+| `fizzbuzz.py` | Classic FizzBuzz from 1–100 using `if/elif/else` |
+| `safe_divide.py` | Divides two user inputs with explicit `ZeroDivisionError` and `ValueError` handling |
+| `collatz.py` | Applies the Collatz sequence from a user-supplied starting number |
+| `word_count.py` | Returns a `{word: count}` dict using `dict.get()` for clean frequency counting |
+| `filter_evens.py` | Filters even numbers from a list using a list comprehension |
+| `file_writer.py` | Writes a list of strings to a `.txt` file using `pathlib.Path` |
+| `process.py` | Filters, sorts, and groups student records; writes result to `output.json`; prints a terminal summary |
+
+## How to Run
 
 No virtual environment or pip installs needed — standard library only.
 
 ```fish
+cd phase-1/00-js-to-python
+python fibonacci.py
+python celsius_converter.py
+python fizzbuzz.py
+python safe_divide.py
+python collatz.py
+python word_count.py
+python filter_evens.py
+python file_writer.py
 python process.py
 ```
 
-Running the script prints a terminal summary and writes `output.json` to the same directory. `output.json` is excluded from version control — run the script to generate it.
+Running `process.py` prints a terminal summary and writes `output.json` to the same directory. `output.json` is excluded from version control — run the script to generate it.
 
 ## What I Learned
 
-- **`sorted()` vs `.sort()`**: `.sort()` modifies a list in place and returns `None`. Writing `result = my_list.sort()` silently loses your data with no error. `sorted()` returns a new sorted list and leaves the original untouched — always the safer default.
-- **`key=lambda` for sorting dicts**: `sorted(students, key=lambda s: s["score"], reverse=True)` tells `sorted()` to compare by the `score` value rather than the whole dict. The lambda is just a one-line function that extracts the comparison value.
-- **`dict.get(key, default)`**: Used in `word_count.py` to count word frequencies cleanly — `counts.get(word, 0) + 1` avoids needing an `if key in dict` check before every increment.
-- **`pathlib` over `open()`**: `Path("output.json").write_text(json.dumps(data, indent=2))` is cleaner and more consistent than the `open()/write()/close()` pattern. `json.dumps()` (returns a string) pairs with `write_text()`; `json.dump()` (writes to a file object) pairs with `open()` — since the roadmap uses `pathlib` everywhere, `json.dumps()` is always the right call.
+`:.1f` formats a float to a fixed number of decimal places, which also avoids floating point precision noise in the output (e.g. `32.00000000000001` becoming `32.0`).
+
+`//` performs floor division, returning an integer result rather than a float.
+
+`sorted()` vs `.sort()`: `.sort()` modifies a list in place and returns `None`. Writing `result = my_list.sort()` silently loses your data with no error. `sorted()` returns a new sorted list and leaves the original untouched.
+
+`key=lambda` for sorting dicts: `sorted(students, key=lambda s: s["score"], reverse=True)` tells `sorted()` to compare by the `score` value rather than the whole dict.
+
+`dict.get(key, default)`: used in `word_count.py` to count word frequencies without needing an `if key in dict` check before every increment.
+
+`pathlib` over `open()`: `Path("output.json").write_text(json.dumps(data, indent=2))` is cleaner and more consistent than the `open()/write()/close()` pattern. `json.dumps()` (returns a string) pairs with `write_text()`; `json.dump()` (writes to a file object) pairs with `open()`. Since the roadmap uses `pathlib` everywhere, `json.dumps()` is always the right pairing.
 
 ## What I Would Do Differently
 
-The grouping logic initially iterated over `student_records` (all 8 students) instead of `passing_student_sorted` (the filtered, sorted list). The result was that failing students appeared in `output.json` — a logic bug with no error message, just wrong output. In future I'd be more deliberate about which list each loop operates on, and check the output file manually before considering a step done.
+`collatz.py` has no input validation for negative numbers or zero. Both cause the sequence to never terminate, resulting in an infinite loop. A guard clause at the top would fix this.
+
+In `process.py`, the grouping step should iterate over the sorted list rather than the unsorted filtered list, so the within-subject ordering by score is preserved in `output.json`. Using one consistent list for both operations removes the ambiguity.

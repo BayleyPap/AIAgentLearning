@@ -1,10 +1,8 @@
-print('Enter numerator: ')
-n=input()
-print('Enter denominator: ')
-d=input()
+n = input("Enter numerator: ")
+d = input("Enter denominator: ")
 try:
-    print(f'Result: {int(n)/int(d)}')
+    print(f"Result: {int(n) / int(d)}")
 except ZeroDivisionError:
-    print(f'Error: Cannot divide by zero.')
+    print("Error: Cannot divide by zero.")
 except ValueError:
-    print(f'Error: Please enter valid numbers.')
+    print("Error: Please enter valid numbers.")

@@ -31,7 +31,7 @@ print(passing_student_sorted)
 
 
 grouped_by_subject = {"maths": [], "english": []}
-for student in passing_student:
+for student in passing_student_sorted:
     if student["subject"] == "maths":
         grouped_by_subject["maths"].append(student)
     elif student["subject"] == "english":
