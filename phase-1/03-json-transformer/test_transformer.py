@@ -36,7 +36,7 @@ def test_output_file_is_created(sample_data, tmp_path):
 
 
 def test_timestamps_added(sample_data):
-    sample_data = add_timestamp(sample_data)
+    add_timestamp(sample_data)
     assert all("timestamp" in item for item in sample_data)
 
 

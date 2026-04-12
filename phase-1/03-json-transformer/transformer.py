@@ -11,9 +11,9 @@ def read(input_path: Path) -> list:
         data = json.loads(input_path.read_text())
         return data
     except FileNotFoundError:
-        raise FileNotFoundError(f"Input file not found: {input_path}")
+        raise FileNotFoundError(f"Input file not found: {input_path}") from None
     except json.JSONDecodeError as e:
-        raise ValueError(f"Input file is not valid JSON: {e}")
+        raise ValueError(f"Input file is not valid JSON: {e}") from e
 
 
 def add_timestamp(data: list) -> list:
@@ -23,7 +23,7 @@ def add_timestamp(data: list) -> list:
     return data
 
 
-def filter_by_records(data: list, filter_value: int) -> list:
+def filter_records(data: list, filter_value: int) -> list:
     return [entry for entry in data if entry["value"] >= filter_value]
 
 
@@ -47,7 +47,7 @@ def summary(before: list, after: list) -> dict:
 def main():
     data = read(INPUT_PATH)
     data = add_timestamp(data)
-    data_filtered = filter_by_records(data, 10)
+    data_filtered = filter_records(data, 10)
     write(data_filtered, OUTPUT_PATH)
     print(str(summary(data, data_filtered)))
 
