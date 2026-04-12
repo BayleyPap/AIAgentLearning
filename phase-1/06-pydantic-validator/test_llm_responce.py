@@ -1,4 +1,4 @@
-from LLMResponse import LLMResponse, extract_and_validate_json, send_message
+from llm_response import extract_and_validate_json, llm_response, send_message
 
 
 def test_valid_response(mocker):
@@ -7,7 +7,7 @@ def test_valid_response(mocker):
         0
     ].text = '{"answer": "Paris", "confidence": 0.9, "sources_needed": false}'
     result = extract_and_validate_json(send_message(client, "prompt"))
-    assert isinstance(result, LLMResponse)
+    assert isinstance(result, llm_response)
 
 
 def test_invalid_json(mocker):

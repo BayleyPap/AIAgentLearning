@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel, Field, ValidationError
 
 
-class LLMResponse(BaseModel):
+class llm_response(BaseModel):
     answer: str
     confidence: float = Field(ge=0.0, le=1.0)
     sources_needed: bool
@@ -55,7 +55,7 @@ def extract_and_validate_json(text: str) -> dict:
     text = re.sub(r"```json\s*|\s*```", "", text).strip()
     try:
         data = json.loads(text)
-        response = LLMResponse.model_validate(data)
+        response = llm_response.model_validate(data)
         return response
     except json.JSONDecodeError as e:
         print(f"LLM output is not valid JSON: {e}")
