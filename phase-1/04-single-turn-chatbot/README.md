@@ -11,13 +11,16 @@ abstractions, just raw HTTP and response parsing.
 
 ## How to Run It
 ```bash
+cd phase-1/04-single-turn-chatbot
+python -m venv venv
+source venv/bin/activate.fish
 pip install anthropic python-dotenv
 cp .env.example .env  # add your ANTHROPIC_API_KEY
 python chatbot.py
 ```
 
 ## What I Learned
-MagicMock is powerful but fails silently. `asset_called_once()` passes without
+MagicMock is powerful but fails silently. `assert_called_once()` passes without
 error because calling any attribute on a MagicMock just returns another
 MagicMock. Typos in assertion method names will haunt you.
 
