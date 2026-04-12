@@ -87,8 +87,8 @@ def main():
 /help - prints this help message
 /quit - exits the program
 /clear - clears chat history
-/save file_name - saves conversation history as a JSON file with the file name specified, dont include file type extension
-/load file_name - loads file into conversation history, dont include file type extension""")
+/save file_name - saves conversation history as a JSON file with the file name specified, don't include file type extension
+/load file_name - loads file into conversation history, don't include file type extension""")
             continue
         if user_input.lower().startswith("/save"):
             parts = user_input.split()

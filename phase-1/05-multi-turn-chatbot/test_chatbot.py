@@ -25,6 +25,8 @@ def test_input(mocker, invalid_first, valid_second):
 def mock_client(mocker):
     client = mocker.MagicMock()
     client.messages.create.return_value.content[0].text = "Hello from mock!"
+    client.messages.create.return_value.usage.input_tokens = 10
+    client.messages.create.return_value.usage.output_tokens = 10
     return client
 
 
@@ -33,7 +35,7 @@ def test_send_message_returns_text(mock_client):
     assert result == "Hello from mock!"
 
 
-def test_send_message_calls_api(mock_client):
+def test_send_message_calls_api_exactly_once(mock_client):
     send_message(mock_client, [{"role": "user", "content": "Hello"}])
     mock_client.messages.create.assert_called_once()
 
