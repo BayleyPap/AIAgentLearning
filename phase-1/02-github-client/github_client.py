@@ -21,12 +21,12 @@ def fetch_api(endpoint: str):
 
         return data
 
-    except requests.exceptions.ConnectionError:
-        return {"error": "Connection failed"}
-    except requests.exceptions.HTTPError as e:  # Need to handle 404 and 403 seperately
-        return {"error": f"HTTP error: {e}"}
     except requests.exceptions.Timeout:
         return {"error": "Connection timeout"}
+    except requests.exceptions.ConnectionError:
+        return {"error": "Connection failed"}
+    except requests.exceptions.HTTPError as e:
+        return {"error": f"HTTP error: {e}"}
 
 
 def get_profile():
@@ -35,18 +35,23 @@ def get_profile():
 
 def get_repos():
     repos = fetch_api(REPOURL)
+    if isinstance(repos, dict) and "error" in repos:
+        return repos
     return sorted(repos, key=lambda r: r["pushed_at"], reverse=True)
 
 
 def print_summary():
     profile = get_profile()
     repos = get_repos()
+    if "error" in repos:
+        print(f"Error: {repos['error']}")
+        return
     print(f"""
 ====={profile["name"]}({profile["login"]})=====
 {profile["bio"]}
 Followers: {profile["followers"]}
 Public repo count: {profile["public_repos"]}
-Last pushs:""")
+Last pushes:""")
     for repo in repos[:3]:
         print(f"{repo['name']} - {repo['pushed_at']}")
 

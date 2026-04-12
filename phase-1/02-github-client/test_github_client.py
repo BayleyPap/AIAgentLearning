@@ -20,10 +20,11 @@ def test_repos_sorted_by_push_date(mocker):
 
 def test_fetch_not_found(mocker):
     mock_get = mocker.patch("github_client.requests.get")
-    mock_get.side_effect = requests.exceptions.HTTPError("404 file not found")
+    mock_get.return_value.status_code = 404
+    mock_get.return_value.headers = {"X-RateLimit-Remaining": "50"}
 
     result = get_profile()
-    assert result["error"] == "HTTP error: 404 file not found"
+    assert result["error"] == "User not found"
 
 
 def test_fetch_rate_limit(mocker):
