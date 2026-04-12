@@ -51,16 +51,6 @@ def test_highs_and_lows(mock_api_response):
     assert resultb == 22.0
 
 
-def test_summary_contains_tomorrow(mock_api_response):
-    data = mock_api_response
-    now = KNOWN_NOW.replace(tzinfo=None)
-    units = data["hourly_units"]["temperature_2m"]
-    current = get_current_temp(data, now=now)
-    high, low = get_highs_and_lows(data, now=KNOWN_NOW)
-    summary = f"Currently {current}{units} in Melbourne — tomorrow expect a high of {high}{units} and a low of {low}{units}."
-    assert "tomorrow" in summary
-
-
 def test_connection_error(mocker):
     mock_get = mocker.patch("weather_fetcher.requests.get")
     mock_get.side_effect = requests.exceptions.ConnectionError("no network")

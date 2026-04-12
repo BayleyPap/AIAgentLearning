@@ -5,22 +5,22 @@ import requests
 
 def fetch_from_API():
     try:
-        responce = requests.get(
+        response = requests.get(
             "https://api.open-meteo.com/v1/forecast?latitude=-37.8136&longitude=144.9631&hourly=temperature_2m",
             timeout=5,
         )
-        responce.raise_for_status()
-        data = responce.json()
+        response.raise_for_status()
+        data = response.json()
         _ = data["hourly"]["time"]
         _ = data["hourly"]["temperature_2m"]
         _ = data["hourly_units"]["temperature_2m"]
         return data
+    except requests.exceptions.Timeout:
+        return {"error": "Connection timeout"}
     except requests.exceptions.ConnectionError:
         return {"error": "Connection failed"}
     except requests.exceptions.HTTPError as e:
         return {"error": f"HTTP error: {e}"}
-    except requests.exceptions.Timeout:
-        return {"error": "Connection timeout"}
     except KeyError as e:
         return {"error": f"Unexpected API response structure, missing key: {e}"}
 
@@ -70,6 +70,9 @@ def get_highs_and_lows(data: dict, now: datetime = None):
 
 def print_weather():
     data = fetch_from_API()
+    if "error" in data:
+        print(f"Error: {data['error']}")
+        return
     now = datetime.now(timezone.utc)
     units = data["hourly_units"]["temperature_2m"]
 
