@@ -11,6 +11,8 @@ class API:
         load_dotenv()
         self.client = anthropic.Anthropic()
         self.logger = logging.getLogger(__name__)
+        self.total_input_tokens = 0
+        self.total_output_tokens = 0
 
     def query_anthropic(self, messages: list[dict]) -> str:
         try:
@@ -23,6 +25,8 @@ class API:
             self.logger.info(
                 f"Tokens — input: {response.usage.input_tokens}, output: {response.usage.output_tokens}"
             )
+            self.total_input_tokens += response.usage.input_tokens
+            self.total_output_tokens += response.usage.output_tokens
             return response.content[0].text
         except anthropic.APIConnectionError as e:
             self.logger.error(f"Connection error: {e}")
@@ -33,3 +37,6 @@ class API:
         except anthropic.APIStatusError as e:
             self.logger.error(f"API error {e.status_code}: {e.message}")
             raise
+
+    def get_token_counts(self) -> tuple[int, int]:
+        return self.total_input_tokens, self.total_output_tokens

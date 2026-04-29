@@ -117,3 +117,14 @@ def test_invalid_import_datatype(tmp_path):
     new_state = State()
     with pytest.raises(TypeError):
         new_state.import_history(file_path)
+
+
+def test_get_formatted_history():
+    my_state = State()
+    my_state.add_turn(
+        {"role": "user", "content": "hello"}, {"role": "assistant", "content": "hi"}
+    )
+    assert (
+        my_state.get_history_formatted()
+        == "Chat history:\nuser: hello\nassistant: hi\n"
+    )

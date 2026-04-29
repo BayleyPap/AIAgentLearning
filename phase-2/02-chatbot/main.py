@@ -8,6 +8,13 @@ from cli import formatted_print, get_input, print_help, print_welcome, validate_
 from state import State
 
 
+def quit_program(state: State, api: API) -> None:
+    formatted_print(state.get_summary())
+    input_tokens, output_tokens = api.get_token_counts()
+    formatted_print(f"Total tokens -- input: {input_tokens}, output: {output_tokens}")
+    formatted_print("Goodbye!")
+
+
 def main() -> None:
     api = API()
     state = State()
@@ -18,14 +25,12 @@ def main() -> None:
         try:
             user_input = get_input()
         except KeyboardInterrupt:
-            formatted_print(state.get_summary())
-            formatted_print("Goodbye!")
+            quit_program(state, api)
             break
         if not validate_input(user_input):
             continue
         if user_input.lower() == "/quit":
-            formatted_print(state.get_summary())
-            formatted_print("Goodbye!")
+            quit_program(state, api)
             break
         if user_input.lower() == "/clear":
             formatted_print(
@@ -34,6 +39,9 @@ def main() -> None:
             continue
         if user_input.lower() == "/help":
             print_help()
+            continue
+        if user_input.lower() == "/history":
+            formatted_print(state.get_history_formatted())
             continue
         if user_input.lower().startswith("/save"):
             parts = user_input.split()

@@ -28,8 +28,7 @@ def formatted_print(output_str: str) -> None:
 
 
 def print_welcome() -> None:
-    print("""Welcome! Type your message to start chatting.
-Use /help to see available commands.""")
+    print("""You are now talking with the linux expert bot what is your query?""")
 
 
 def print_help() -> None:
@@ -37,5 +36,5 @@ def print_help() -> None:
 /help - prints this help message
 /quit - exits the program
 /clear - clears chat history
-/save file_name - saves conversation history as a JSON file with the file name specified, don't include file type extension
-/load file_name - loads file into conversation history, don't include file type extension""")
+/save file_name - saves conversation history as a JSON file with the file name specified
+/load file_name - loads file into conversation history""")

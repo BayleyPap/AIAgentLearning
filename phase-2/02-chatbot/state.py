@@ -43,3 +43,9 @@ class State:
     def get_summary(self) -> str:
         total_chars = sum(len(msg["content"]) for msg in self.history)
         return f"Conversation ended. {len(self)} turns, {total_chars:,} characters exchanged."
+
+    def get_history_formatted(self) -> str:
+        output_str = "Chat history:\n"
+        for msg in self.history:
+            output_str += f"{msg['role']}: {msg['content']}\n"
+        return output_str
