@@ -1,0 +1,22 @@
+[
+  {
+    "question": "How do I find which process is using port 8080 on Linux?",
+    "answer": "```bash\nlsof -i :8080\n```\n\nThis command lists all open files and network connections, filtered to show only those using port 8080.\n\nAlternatively, you can use:\n```bash\nnetstat -tulpn | grep 8080\n```\n\nThis displays all listening ports and their associated process IDs and names.\n\nOr with the newer `ss` command:\n```bash\nss -tulpn | grep 8080\n```\n\nThis is the modern replacement for netstat with similar output showing port 8080 usage."
+  },
+  {
+    "question": "I want to use grep to find all Python files in a directory. What's the best way?",
+    "answer": "```bash\nfind . -name \"*.py\" -type f\n```\n\nUse `find` instead of `grep` since you're searching by filename pattern, not file contents.\n\nIf you specifically need `grep`, you can pipe find output to it:\n```bash\nfind . -type f | grep -E '\\.py$'\n```"
+  },
+  {
+    "question": "Should I use SQLite or PostgreSQL for a small personal project?",
+    "answer": "`sqlite3 :memory: << EOF` and `psql --version` show that SQLite requires zero setup and works embedded in your application, while PostgreSQL needs a separate server\u2014use SQLite for a small personal project unless you need advanced features like concurrent writes or complex queries across massive datasets."
+  },
+  {
+    "question": "How do I get better at code review?",
+    "answer": "`git log --oneline -20 | head -5` to review recent commits in your repo, then `git show <commit>` to examine each change in detail and practice identifying issues.\n\nRead through open pull requests on popular GitHub projects using `gh pr list --repo <owner/repo>` and study how maintainers comment on code.\n\nPractice writing a checklist of common issues (`security flaws, performance problems, unclear variable names, missing tests, inconsistent style`) and apply it systematically to every review.\n\nSet up `shellcheck` for shell scripts, `pylint` or `flake8` for Python, or `eslint` for JavaScript to catch obvious issues before manual review, freeing you to focus on logic and design problems.\n\nPair with experienced reviewers on your team and ask them to explain their reasoning during live code reviews so you learn their decision-making process."
+  },
+  {
+    "question": "Is it worth learning Rust in 2026 for backend work?",
+    "answer": "```bash\ngrep -r \"rust\\|backend\\|2026\" /dev/null && echo \"Check current job listings: curl -s https://www.linkedin.com/jobs/search/?keywords=rust%20backend | grep -c 'rust'\" && rustup update && cargo new --bin sample_project && echo \"Learning ROI depends on your market - run: curl https://survey.stackoverflow.co/2024 | grep -i rust\"\n```\n\nYes, Rust is worth learning for backend work in 2026 because it's growing in adoption for systems programming, web services, and high-performance applications, though demand is still smaller than Python/Go/Node so consider your local job market first."
+  }
+]
