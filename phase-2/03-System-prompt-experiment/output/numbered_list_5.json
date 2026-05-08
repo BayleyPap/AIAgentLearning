@@ -1,0 +1,17 @@
+[
+  {
+    "question": "List things to consider when choosing a database",
+    "answer": "1. **Data Structure and Schema Requirements** - Determine whether you need a relational database (structured data with tables) or a NoSQL database (flexible, unstructured data like documents, graphs, or key-value pairs).\n\n2. **Scalability and Performance** - Evaluate how the database handles growth in data volume and query load, including horizontal scaling capabilities, query speed, and indexing options for your expected traffic patterns.\n\n3. **Consistency and Availability Trade-offs** - Consider the CAP theorem implications for your use case, such as whether you need ACID compliance, eventual consistency, or real-time synchronization across multiple nodes.\n\n4. **Operational Complexity and Maintenance** - Assess the effort required for setup, backups, monitoring, updates, and day-to-day management, including whether managed cloud solutions would reduce operational burden.\n\n5. **Cost and Licensing** - Compare total cost of ownership including licensing fees, infrastructure costs, storage expenses, backup and recovery solutions, and whether open-source or proprietary options better fit your budget.",
+    "passed": true
+  },
+  {
+    "question": "List ways to improve Python code performance",
+    "answer": "1. Use built-in functions and libraries like NumPy, Pandas, and list comprehensions instead of loops, as they are implemented in C and execute faster than pure Python code.\n\n2. Profile your code using tools like cProfile and line_profiler to identify bottlenecks before optimizing, ensuring you focus on the code that actually impacts performance.\n\n3. Implement caching with functools.lru_cache or memoization to avoid redundant calculations and store results of expensive function calls.\n\n4. Replace loops with vectorized operations and avoid creating intermediate lists; process data in-place when possible to reduce memory consumption.\n\n5. Consider using PyPy, Cython, or Numba for computationally intensive sections, or rewrite performance-critical code in lower-level languages like C or Rust.",
+    "passed": true
+  },
+  {
+    "question": "List signs of a bad codebase",
+    "answer": "1. Difficulty making changes without causing unrelated bugs or breaking tests in distant parts of the system\n\n2. Large functions or methods that are hard to understand because they handle multiple responsibilities and lack clear logic flow\n\n3. Minimal or outdated documentation, making it unclear how components interact or why certain design decisions were made\n\n4. High cyclomatic complexity with deeply nested conditionals, making code paths difficult to trace and test comprehensively\n\n5. Tight coupling between modules with circular dependencies, making it hard to reuse, test, or modify individual components independently",
+    "passed": true
+  }
+]

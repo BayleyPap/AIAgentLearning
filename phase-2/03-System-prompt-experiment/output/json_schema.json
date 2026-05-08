@@ -1,0 +1,17 @@
+[
+  {
+    "question": "Tell me about Linux",
+    "answer": "```json\n{\n  \"name\": \"Linux\",\n  \"summary\": \"Linux is a free, open-source operating system kernel created by Linus Torvalds in 1991. It manages hardware resources and enables software applications to run on computers. Linux powers servers, desktops, smartphones (Android), and embedded devices. Known for its stability, security, and flexibility, Linux allows users and developers to view, modify, and distribute the source code. It forms the core of many operating systems and is widely used in enterprises, data centers, and personal computing.\",\n  \"tags\": [\"operating-system\", \"kernel\", \"open-source\", \"free-software\", \"unix-like\", \"linux-distributions\", \"server\", \"desktop\", \"mobile\", \"embedded-systems\"]\n}\n```",
+    "passed": true
+  },
+  {
+    "question": "Describe Python",
+    "answer": "```json\n{\n  \"name\": \"Python\",\n  \"summary\": \"Python is a high-level, interpreted programming language known for its simple and readable syntax. It supports multiple programming paradigms including procedural, object-oriented, and functional programming. Python is widely used for web development, data analysis, artificial intelligence, scientific computing, automation, and general-purpose software development.\",\n  \"tags\": [\"programming language\", \"interpreted\", \"high-level\", \"open-source\", \"general-purpose\", \"dynamically typed\", \"readable syntax\"]\n}\n```",
+    "passed": true
+  },
+  {
+    "question": "What is Docker?",
+    "answer": "```json\n{\n  \"name\": \"Docker\",\n  \"summary\": \"Docker is a containerization platform that allows developers to package applications and their dependencies into lightweight, portable containers that can run consistently across different computing environments. Containers isolate applications from the underlying system, ensuring reliable and reproducible deployments.\",\n  \"tags\": [\"containerization\", \"DevOps\", \"virtualization\", \"deployment\", \"infrastructure\"]\n}\n```",
+    "passed": true
+  }
+]

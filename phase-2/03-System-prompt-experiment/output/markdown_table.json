@@ -1,0 +1,17 @@
+[
+  {
+    "question": "Compare 3 Linux distributions",
+    "answer": "| Tool | Use Case | Pros | Cons |\n|------|----------|------|------|\n| Ubuntu | Desktop, servers, development | User-friendly, large community, extensive documentation, good hardware support, regular updates | Larger disk footprint, can be resource-heavy, sometimes prioritizes features over stability |\n| CentOS | Enterprise servers, production systems | Stable, long-term support, RHEL-compatible, minimal bloat, security-focused | Older packages, slower updates, smaller community than Ubuntu, limited cutting-edge software |\n| Fedora | Testing ground, developers, enthusiasts | Latest software, frequent updates, innovative features, excellent documentation | Shorter support lifecycle, potential instability, requires more frequent upgrades, fewer LTS options |",
+    "passed": true
+  },
+  {
+    "question": "Compare 3 Python web frameworks",
+    "answer": "| Tool | Use Case | Pros | Cons |\n|------|----------|------|------|\n| Django | Full-stack web applications with complex requirements | Batteries-included, ORM, admin panel, strong security features, excellent documentation, large ecosystem | Steeper learning curve, heavier framework, slower for simple projects, tightly coupled components |\n| Flask | Lightweight APIs and small to medium applications | Minimal and flexible, easy to learn, lightweight, highly customizable, great for microservices | Requires more manual setup, fewer built-in features, less suitable for large complex projects, smaller community than Django |\n| FastAPI | Modern APIs and real-time applications | Fast performance, automatic API documentation, async/await support, type hints, modern Python features, excellent for data science | Smaller ecosystem than Django/Flask, less mature, fewer third-party extensions, steeper learning curve for async concepts |",
+    "passed": true
+  },
+  {
+    "question": "Compare 3 version control systems",
+    "answer": "| Tool | Use Case | Pros | Cons |\n|------|----------|------|------|\n| Git | Distributed version control for software projects of all sizes | Fast, distributed workflow, strong branching/merging, large community, free and open-source | Steep learning curve, can be complex for beginners, requires local storage of full history |\n| Subversion (SVN) | Centralized version control for teams preferring traditional workflows | Simple and straightforward, easier to learn than Git, centralized control, good for binary files | Slower than Git, less flexible branching, requires central server, smaller community support |\n| Mercurial (Hg) | Distributed version control emphasizing simplicity and performance | Simpler than Git, good performance, built-in web interface, easier to understand | Smaller community than Git, fewer integrations, less widely adopted in industry |",
+    "passed": true
+  }
+]

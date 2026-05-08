@@ -1,0 +1,17 @@
+[
+  {
+    "question": "Explain what an API is",
+    "answer": "An API, or Application Programming Interface, is a set of rules and protocols that allows different software applications to communicate with each other. It defines the methods and data formats that applications can use to request and exchange information, enabling seamless integration between systems and services.",
+    "passed": false
+  },
+  {
+    "question": "Describe Docker",
+    "answer": "Docker is a containerization platform that packages applications with their dependencies into lightweight, portable containers. These containers run consistently across different environments. Docker uses images as blueprints and containers as running instances. It enables faster deployment, improved scalability, and simplified DevOps workflows through isolated, reproducible computing environments.",
+    "passed": false
+  },
+  {
+    "question": "Summarise the difference between SQL and NoSQL",
+    "answer": "SQL uses structured tables with predefined schemas and relationships; ideal for complex queries. NoSQL stores unstructured data in flexible formats like documents or key-value pairs; better for scalability and rapidly changing data. SQL prioritizes consistency; NoSQL prioritizes availability and partition tolerance.",
+    "passed": false
+  }
+]
