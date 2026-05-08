@@ -40,3 +40,54 @@ SYSTEM_PROMPTS = [
         ),
     },
 ]
+FORMAT_EXPERIMENTS = [
+    {
+        "name": "json_schema",
+        "system": (
+            "Respond ONLY with valid JSON matching this schema and nothing "
+            "else. No preamble, no markdown code fences. Schema: "
+            '{"name": "string", "summary": "string", "tags": ["string"]}'
+        ),
+        "questions": [
+            "Tell me about Linux",
+            "Describe Python",
+            "What is Docker?",
+        ],
+    },
+    {
+        "name": "markdown_table",
+        "system": (
+            "Respond with a markdown table only. Columns must be exactly: "
+            "Tool, Use Case, Pros, Cons. No text before or after the table."
+        ),
+        "questions": [
+            "Compare 3 Linux distributions",
+            "Compare 3 Python web frameworks",
+            "Compare 3 version control systems",
+        ],
+    },
+    {
+        "name": "numbered_list_5",
+        "system": (
+            "Respond with exactly 5 items, numbered 1 to 5. No introduction, "
+            "no conclusion, no extra items."
+        ),
+        "questions": [
+            "List things to consider when choosing a database",
+            "List ways to improve Python code performance",
+            "List signs of a bad codebase",
+        ],
+    },
+    {
+        "name": "word_count_50",
+        "system": (
+            "Respond in exactly 50 words. Not 49, not 51. Count carefully "
+            "before responding."
+        ),
+        "questions": [
+            "Explain what an API is",
+            "Describe Docker",
+            "Summarise the difference between SQL and NoSQL",
+        ],
+    },
+]
