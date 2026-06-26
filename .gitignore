@@ -205,3 +205,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# runtime artifacts
+input.json
+output.json
+phase-1/05-multi-turn-chatbot/s.json
+phase-1/00-atbs-exervises/
