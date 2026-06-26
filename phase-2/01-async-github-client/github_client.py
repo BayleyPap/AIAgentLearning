@@ -6,7 +6,7 @@ import httpx
 import requests
 
 
-def fetch_api(endpoint: str):
+def fetch_api(endpoint: str) -> dict | list:
     try:
         response = requests.get(
             endpoint,
@@ -30,12 +30,12 @@ def fetch_api(endpoint: str):
         return {"error": f"HTTP error: {e}"}
 
 
-def get_profile(username: str):
+def get_profile(username: str) -> dict:
     url = f"https://api.github.com/users/{username}"
     return fetch_api(url)
 
 
-def get_repos(username: str):
+def get_repos(username: str) -> list:
     url = f"https://api.github.com/users/{username}/repos?sort=pushed&per_page=10"
     repos = fetch_api(url)
     if isinstance(repos, dict) and "error" in repos:
@@ -49,7 +49,7 @@ def fetch_user_data(username: str) -> tuple[dict, list]:
     return profile, repos
 
 
-async def async_fetch_api(client: httpx.AsyncClient, endpoint: str) -> dict:
+async def async_fetch_api(client: httpx.AsyncClient, endpoint: str) -> dict | list:
     try:
         response = await client.get(endpoint, timeout=5)
         remaining = int(response.headers.get("X-RateLimit-Remaining", 1))
