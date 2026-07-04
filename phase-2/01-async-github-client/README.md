@@ -10,22 +10,22 @@ This is the Phase 2 refactor of my Phase 1 GitHub client. The original was a sin
 
 ## How to Run It
 
-```fish
+```bash
 python -m venv venv
-source venv/bin/activate.fish
+source venv/bin/activate #fish: source venv/bin/activate.fish
 pip install httpx requests pytest pytest-mock pytest-asyncio
 python github_client.py your_github_username_here
 ```
 
 To run the tests:
 
-```fish
+```bash
 pytest -v
 ```
 
 ### Example output
 
-```fish
+```
 venv ❯ python github_client.py BayleyPap
 =====Bayley Papworth(BayleyPap)=====
 AI Agent Engineer in training | Self-hosted LLMs | Python · LangChain · Docker
