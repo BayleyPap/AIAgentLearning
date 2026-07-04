@@ -1,11 +1,11 @@
+import argparse
 import json
 import re
 from pathlib import Path
 
 from anthropic import APIConnectionError, APIStatusError, RateLimitError
-
 from api import API
-from config import FORMAT_EXPERIMENTS
+from config import FORMAT_EXPERIMENTS, QUESTIONS, SYSTEM_PROMPTS
 
 
 def write_to_file(data: list, path: Path):
@@ -54,25 +54,33 @@ VALIDATORS = {
 }
 
 
-def main():
-    api = API()
-    output_dir = Path("output")
-    output_dir.mkdir(exist_ok=True)
+def run_personas(api: API, output_dir: Path):
+    """Experiment 1: each persona prompt against the shared question set."""
+    for persona in SYSTEM_PROMPTS:
+        result = []
+        for question in QUESTIONS:
+            try:
+                answer = api.query_anthropic(question, persona["system"])
+                result.append({"question": question, "answer": answer})
+                print(f"[{persona['name']}] {question[:40]}... -> done")
+            except APIConnectionError:
+                result.append({"question": question, "error": "connection_error"})
+            except (RateLimitError, APIStatusError):
+                result.append({"question": question, "error": "api_error"})
+        write_to_file(result, output_dir / f"{persona['name']}.json")
 
+
+def run_formats(api: API, output_dir: Path):
+    """Experiment 2: each format experiment with its own questions and validator."""
     for experiment in FORMAT_EXPERIMENTS:
         result = []
         validator = VALIDATORS[experiment["name"]]
-
         for question in experiment["questions"]:
             try:
                 answer = api.query_anthropic(question, experiment["system"])
                 passed = validator(answer)
                 result.append(
-                    {
-                        "question": question,
-                        "answer": answer,
-                        "passed": passed,
-                    }
+                    {"question": question, "answer": answer, "passed": passed}
                 )
                 print(
                     f"[{experiment['name']}] {question[:40]}... -> {'PASS' if passed else 'FAIL'}"
@@ -81,8 +89,28 @@ def main():
                 result.append({"question": question, "error": "connection_error"})
             except (RateLimitError, APIStatusError):
                 result.append({"question": question, "error": "api_error"})
-
         write_to_file(result, output_dir / f"{experiment['name']}.json")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Run system prompt experiments against the Anthropic API."
+    )
+    parser.add_argument(
+        "experiment",
+        choices=["personas", "formats"],
+        help="Which experiment to run: personas (Experiment 1) or formats (Experiment 2).",
+    )
+    args = parser.parse_args()
+
+    api = API()
+    output_dir = Path("output")
+    output_dir.mkdir(exist_ok=True)
+
+    if args.experiment == "personas":
+        run_personas(api, output_dir)
+    else:
+        run_formats(api, output_dir)
 
 
 if __name__ == "__main__":
