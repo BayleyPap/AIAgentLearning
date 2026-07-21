@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "expected_type": "escalate",
+    "user_message": "hi we keep getting terminal error 1 come up on the screen when we try and take a card payment, its been doing it since about lunchtime, we have a line of people waiting can someone call us back",
+    "run": 2,
+    "answer": "I understand you have customers waiting\u2014let me help you quickly.\n\n**What I'm checking first:**\nI need to establish whether this is affecting just one terminal or multiple ones, because that tells us if it's a device issue or something broader.\n\n**Quick questions:**\n1. How many terminals are showing this error? Is it all of them, or just one or two?\n2. Are card payments failing on all payment types (credit/debit/contactless), or just certain ones?\n3. Has anything changed since this morning\u2014did you restart anything, install updates, or change any settings around lunchtime?\n\n**About calling back:**\nI can't arrange callbacks from this line, but depending on what you tell me, I may be able to fix this quickly over the phone, or I'll escalate it to the right team immediately with all the details so they can prioritize it.\n\nWhat's the situation\u2014is this one terminal or multiple?"
+  },
+  {
+    "id": 2,
+    "expected_type": "answerable",
+    "user_message": "register 2 has come up with no printer call helpdesk on it. it printed fine yesterday. nothing has changed that i know of. we cant give anyone a receipt now",
+    "run": 2,
+    "answer": "I understand\u2014that's urgent. Let me gather some information so we can get this sorted quickly.\n\n**What I'm checking and why:** I need to establish whether this is a Register 2-specific problem or if the printer itself has failed, which determines whether we're looking at a communication issue or hardware failure.\n\nA few questions:\n\n1. **Is the printer physically powered on?** Can you see if there's a power light or any signs of life on the printer unit itself?\n\n2. **Can you see any error messages on the Register 2 screen?** Even if it says \"no printer,\" are there any error codes displayed?\n\n3. **Is there a second register nearby that uses the same printer**, or does each register have its own dedicated printer?\n\n4. **Did anything happen to the printer or cables yesterday** \u2014 was it moved, unplugged, or did anyone do any maintenance near it?\n\nOnce I understand the scope here, I'll know whether we can resolve this with a reboot or if we need to escalate to our hardware team."
+  },
+  {
+    "id": 3,
+    "expected_type": "answerable",
+    "user_message": "register 4 is frozen, i cant type anything at all, the keyboard has stopped working. i already tried unplugging it and plugging it back in. we had a bit of a power flicker this morning but everything else seems ok",
+    "run": 2,
+    "answer": "Good troubleshooting on the keyboard restart\u2014let me work through this systematically.\n\n**What I'm checking and why:**\n\nI need to determine if this is isolated to Register 4's keyboard or if the POS terminal itself is unresponsive, since that affects whether we're dealing with a hardware issue or a system issue.\n\n**Quick questions:**\n\n1. When you say you can't type anything at all\u2014can you see the cursor blinking on the screen, or is the entire terminal frozen (screen not responding to anything)?\n\n2. Do any lights on the keyboard light up when you press keys, or is there no response at all?\n\n3. Is the keyboard the same one you normally use, or did you try a different one when you plugged it back in?\n\n**While you check those:**\n\nThe power flicker this morning is relevant context. If the terminal froze after that and the keyboard restart didn't help, the terminal itself may need a restart to recover properly.\n\nOnce you answer those questions, I can either guide you through a terminal reboot or help narrow down if this is a keyboard hardware issue that needs physical replacement."
+  },
+  {
+    "id": 4,
+    "expected_type": "escalate",
+    "user_message": "im a new starter, started monday. i can get into citrix fine and all the other apps open ok but when i click outlook i get an error and it closes straight away. the girl next to me can open hers no worries. can you fix it",
+    "run": 2,
+    "answer": "Welcome to the team! Let me help you troubleshoot this. I need to gather some information first before we decide on the best fix.\n\n**What I'm checking and why:**\nI need to understand whether this is specific to your account/mailbox setup or a device issue, since your colleague can open Outlook fine on their machine.\n\n**Quick questions:**\n\n1. **What error message do you see** before Outlook closes? Can you read it to me, or take a screenshot if possible? (This helps me understand if it's a login issue, licensing issue, or something else)\n\n2. **Which Outlook are you opening** - is it the Outlook desktop app or are you accessing it through the Citrix web interface?\n\n3. **When exactly did you last successfully use Outlook** - never since you started, or did it work on your first day?\n\n4. **Has anything changed** on your device or account since Monday - any updates, password changes, or IT changes made for your new starter setup?\n\nOnce I know those details, I'll be able to tell you whether this is something we can fix quickly on the phone, or whether it needs to go to our systems team to sort out your mailbox/account setup."
+  },
+  {
+    "id": 5,
+    "expected_type": "ambiguous",
+    "user_message": "scanner isnt scanning. nothing happens when we scan. can you have a look",
+    "run": 2,
+    "answer": "I'll help you troubleshoot this. Let me gather some information first to understand the scope of the problem.\n\n**What I'm checking and why:**\nI need to determine if this is isolated to one scanner or a broader issue, and whether something recently changed.\n\n**Questions:**\n\n1. **Which scanner isn't working?** Is it a handheld scanner, a fixed checkout scanner, or both?\n\n2. **How many scanners are affected?** Is it just one device, or are multiple scanners across your store having this issue?\n\n3. **When did this start?** Did it stop working suddenly today, or gradually over time?\n\n4. **What changed recently?** \n   - Was the scanner moved or dropped?\n   - Did you restart anything recently?\n   - Any software updates or changes to the POS system?\n\n5. **What happens when you scan?** You said nothing happens\u2014does the scanner:\n   - Make no sound at all?\n   - Light up but don't register the scan?\n   - Show any error messages on the POS screen?\n\nOnce I understand the scope and what's changed, I can walk you through some basic troubleshooting steps or escalate this to the right team."
+  }
+]
