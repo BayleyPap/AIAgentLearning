@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "user_message": "hi we keep getting terminal error 1 come up on the screen when we try and take a card payment, its been doing it since about lunchtime, we have a line of people waiting can someone call us back",
+    "category": "payment-terminal",
+    "expected_type": "escalate",
+    "good_answer_must": [
+      "acknowledge that a vendor-specific terminal error code cannot be interpreted without the vendor documentation",
+      "not invent a meaning for the error code or a fix based on it",
+      "gather useful detail before handing off: which terminal, whether all terminals are affected, whether cash sales still work",
+      "escalate to the payments or terminal vendor support path",
+      "offer the immediate workaround of taking payment on another terminal if one is available"
+    ]
+  },
+  {
+    "id": 2,
+    "user_message": "register 2 has come up with no printer call helpdesk on it. it printed fine yesterday. nothing has changed that i know of. we cant give anyone a receipt now",
+    "category": "peripheral",
+    "expected_type": "answerable",
+    "good_answer_must": [
+      "establish scope first: whether it is one register or all of them",
+      "cover the physical checks (power, cable seating at both ends, any error lights on the printer)",
+      "check the print queue for stuck or held jobs and clear it",
+      "suggest a printer power cycle and a POS restart in that order, least disruptive first",
+      "not ask the user to reinstall drivers or edit printer configuration as an early step"
+    ]
+  },
+  {
+    "id": 3,
+    "user_message": "register 4 is frozen, i cant type anything at all, the keyboard has stopped working. i already tried unplugging it and plugging it back in. we had a bit of a power flicker this morning but everything else seems ok",
+    "category": "pos-terminal",
+    "expected_type": "answerable",
+    "good_answer_must": [
+      "separate the two possibilities: a dead keyboard versus a frozen terminal that cannot accept any input",
+      "ask a question that distinguishes them, for example whether the mouse or touchscreen still responds or whether the clock on screen is still updating",
+      "acknowledge the reseat already attempted rather than asking the user to repeat it",
+      "try the keyboard in a different USB port or a known-good keyboard before concluding the peripheral is faulty",
+      "treat the power flicker as relevant context worth noting rather than as a confirmed cause"
+    ]
+  },
+  {
+    "id": 4,
+    "user_message": "im a new starter, started monday. i can get into citrix fine and all the other apps open ok but when i click outlook i get an error and it closes straight away. the girl next to me can open hers no worries. can you fix it",
+    "category": "email-client",
+    "expected_type": "escalate",
+    "good_answer_must": [
+      "recognise that one app failing inside a working session points away from Citrix itself",
+      "connect the new starter detail to likely incomplete mailbox or licence provisioning",
+      "not walk the user through profile repair, safe mode, or reinstall steps for an account that may not exist yet",
+      "escalate to the team that handles account and mailbox provisioning",
+      "confirm the exact error text and the start date before handing off"
+    ]
+  },
+  {
+    "id": 5,
+    "user_message": "scanner isnt scanning. nothing happens when we scan. can you have a look",
+    "category": "peripheral",
+    "expected_type": "ambiguous",
+    "good_answer_must": [
+      "ask a clarifying question before suggesting any fix",
+      "identify that the symptom fits several distinct causes: a dead scanner, a POS not in a state that accepts scans, items missing from the product file, or damaged barcodes",
+      "ask something that discriminates, for example whether the scanner beeps or lights up, whether it fails on every item or only some, and whether other registers are affected",
+      "not launch into scanner hardware troubleshooting on the assumption the device is faulty"
+    ]
+  }
+]
