@@ -4,8 +4,15 @@ import re
 from pathlib import Path
 
 from anthropic import APIConnectionError, APIStatusError, RateLimitError
+
 from api import API
-from config import FORMAT_EXPERIMENTS, QUESTIONS, SYSTEM_PROMPTS
+from config import (
+    FORMAT_EXPERIMENTS,
+    HELPDESK_PROMPT,
+    HELPDESK_PROMPT_B,
+    QUESTIONS,
+    SYSTEM_PROMPTS,
+)
 
 
 def write_to_file(data: list, path: Path):
@@ -92,14 +99,59 @@ def run_formats(api: API, output_dir: Path):
         write_to_file(result, output_dir / f"{experiment['name']}.json")
 
 
+def run_helpdesk(
+    api: API,
+    output_dir: Path,
+    runs: int = 2,
+    prompt: str = HELPDESK_PROMPT,
+    label: str = "helpdesk",
+):
+    """Experiment 3: help desk persona against the scenario set, repeated for variance."""
+    scenarios = json.loads(Path("scenarios.json").read_text())
+
+    for run in range(1, runs + 1):
+        result = []
+        for scenario in scenarios:
+            record = {
+                "id": scenario["id"],
+                "expected_type": scenario["expected_type"],
+                "user_message": scenario["user_message"],
+                "run": run,
+            }
+            try:
+                record["answer"] = api.query_anthropic(scenario["user_message"], prompt)
+                print(f"[{label} run {run}] scenario {scenario['id']} -> done")
+            except APIConnectionError:
+                record["error"] = "connection_error"
+            except (RateLimitError, APIStatusError):
+                record["error"] = "api_error"
+            result.append(record)
+        write_to_file(result, output_dir / f"{label}_run{run}.json")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Run system prompt experiments against the Anthropic API."
     )
     parser.add_argument(
         "experiment",
-        choices=["personas", "formats"],
-        help="Which experiment to run: personas (Experiment 1) or formats (Experiment 2).",
+        choices=["personas", "formats", "helpdesk"],
+        help=(
+            "Which experiment to run: personas (Experiment 1), "
+            "formats (Experiment 2) or helpdesk (Experiment 3)."
+        ),
+    )
+    parser.add_argument(
+        "--runs",
+        type=int,
+        default=2,
+        help="Number of repeat runs (helpdesk experiment only).",
+    )
+    parser.add_argument(
+        "--variant",
+        choices=["a", "b"],
+        default="a",
+        help="Help desk prompt variant: a (baseline) or b (single-turn bound).",
     )
     args = parser.parse_args()
 
@@ -109,8 +161,15 @@ def main():
 
     if args.experiment == "personas":
         run_personas(api, output_dir)
-    else:
+    elif args.experiment == "formats":
         run_formats(api, output_dir)
+    elif args.experiment == "helpdesk":
+        variants = {
+            "a": (HELPDESK_PROMPT, "helpdesk"),
+            "b": (HELPDESK_PROMPT_B, "helpdesk_b"),
+        }
+        prompt, label = variants[args.variant]
+        run_helpdesk(api, output_dir, args.runs, prompt, label)
 
 
 if __name__ == "__main__":
